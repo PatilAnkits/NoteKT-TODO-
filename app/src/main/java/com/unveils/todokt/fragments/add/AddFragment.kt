@@ -10,13 +10,15 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.unveils.todokt.R
+import com.unveils.todokt.databinding.FragmentAddBinding
+import com.unveils.todokt.databinding.FragmentListBinding
 import com.unveils.todokt.model.Todo
 import com.unveils.todokt.viewmodel.TodoViewModel
-import kotlinx.android.synthetic.main.fragment_add.*
-import kotlinx.android.synthetic.main.fragment_add.view.*
+
 
 class AddFragment : Fragment() {
-
+    private var _binding: FragmentAddBinding? = null
+    private val binding get() = _binding!!
     private lateinit var mTodoViewModel: TodoViewModel
 
     override fun onCreateView(
@@ -24,11 +26,12 @@ class AddFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_add, container, false)
+        _binding = FragmentAddBinding.inflate(inflater, container, false)
+        val view = binding.root
 
         mTodoViewModel = ViewModelProvider(this).get(TodoViewModel::class.java)
 
-        view.add_btn.setOnClickListener {
+        binding.addBtn.setOnClickListener {
             insertDataToDatabase()
         }
 
@@ -36,8 +39,8 @@ class AddFragment : Fragment() {
     }
 
     private fun insertDataToDatabase() {
-       val title = title_et.text.toString()
-        val description = desc_et.text.toString()
+       val title = binding.titleEt.text.toString()
+        val description = binding.descEt.text.toString()
 
         if (inputCheck(title,description)){
             val todo = Todo(0,title,description)

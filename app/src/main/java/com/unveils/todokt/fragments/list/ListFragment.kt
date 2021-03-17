@@ -11,11 +11,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.unveils.todokt.R
+import com.unveils.todokt.databinding.ActivityMainBinding
+import com.unveils.todokt.databinding.FragmentListBinding
 import com.unveils.todokt.viewmodel.TodoViewModel
-import kotlinx.android.synthetic.main.fragment_list.view.*
 
 class ListFragment : Fragment() {
-
+    private var _binding: FragmentListBinding? = null
+    private val binding get() = _binding!!
     private lateinit var mTodoViewModel: TodoViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,11 +26,12 @@ class ListFragment : Fragment() {
 
 
         // Inflate the layout for this fragment
-        val view =  inflater.inflate(R.layout.fragment_list, container, false)
+        _binding = FragmentListBinding.inflate(inflater, container, false)
+        val view = binding.root
 
         // RecyclerView
         val adapter = ListAdapter()
-        val recyclerView = view.recyclerview
+        val recyclerView = binding.recyclerview
         recyclerView.adapter = adapter
         recyclerView.layoutManager = StaggeredGridLayoutManager(2,LinearLayoutManager.VERTICAL)
 
@@ -40,7 +43,7 @@ class ListFragment : Fragment() {
         })
 
 
-        view.floatingActionButton.setOnClickListener { findNavController().navigate(R.id.action_listFragment_to_addFragment) }
+        binding.floatingActionButton.setOnClickListener { findNavController().navigate(R.id.action_listFragment_to_addFragment) }
         return  view
     }
 
