@@ -2,6 +2,7 @@ package com.unveils.todokt
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.ActionBar
 
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -17,11 +18,12 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        setupActionBarWithNavController(findNavController(R.id.fragment))
+        //setupActionBarWithNavController(findNavController(R.id.fragment))
     }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.fragment)
         return navController.navigateUp() ||  super.onSupportNavigateUp()
     }
+    
 }
